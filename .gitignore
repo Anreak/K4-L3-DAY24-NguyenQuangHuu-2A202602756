@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+reports/sink.log
+reports/ledger.jsonl
+reports/attack-before.log
+reports/attack-after.log

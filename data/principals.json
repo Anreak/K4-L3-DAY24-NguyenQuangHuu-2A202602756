@@ -1,0 +1,5 @@
+{
+  "support_l1": {"role": "support_l1", "allowed_tools": ["search_docs"], "purposes": ["support-reply"]},
+  "billing": {"role": "billing", "allowed_tools": ["search_docs", "read_customer"], "purposes": ["billing-reconciliation"]},
+  "dpo": {"role": "dpo", "allowed_tools": ["search_docs", "read_customer"], "purposes": ["support-reply", "privacy-audit"]}
+}
