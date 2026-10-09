@@ -2,7 +2,7 @@
 
     pytest tests/test_pii.py -v -s
 
-Rubric (Rubric.md): >95% = 15đ, 85-95% = 10đ, <85% = 4đ (đo trên recall).
+Rubric (RUBRIC.md): >95% = 10đ, 85-95% = 7đ, <85% = 3đ (đo trên recall).
 Test này chỉ FAIL cứng nếu recall quá thấp (coi như chưa implement) —
 điểm số theo band do người chấm đọc số in ra, không phải pass/fail nhị phân.
 """
@@ -54,7 +54,7 @@ def test_pii_detection_precision_recall():
 
     assert recall >= 0.5, (
         f"recall={recall:.3f} quá thấp — kiểm tra lại regex trong agent/pii.py "
-        "(xem Guide.md (§3a))"
+        "(xem CHECKPOINTS.md (§3a))"
     )
 
 

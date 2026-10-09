@@ -85,7 +85,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Lab 24 agent loop")
     parser.add_argument("message", help="Câu hỏi/yêu cầu gửi cho agent")
     parser.add_argument("--mock", action="store_true", help="Dùng fake LLM deterministic (khuyến nghị)")
-    parser.add_argument("--model", default=None, help="Model Claude thật, ví dụ claude-haiku-4-5")
+    parser.add_argument("--model", default=None, help="Model Claude thật, chỉ dùng thử ngoài phần chấm")
     parser.add_argument("--as", dest="principal_id", default="support_l1",
                         help="Principal mô phỏng cho checkpoint OBO")
     args = parser.parse_args()

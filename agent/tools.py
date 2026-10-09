@@ -3,7 +3,7 @@
     search_docs    -> chân 1: untrusted content (đọc corpus/, nơi attacker
                       cài payload)
     read_customer  -> chân 2: private data (đọc data/customers.json)
-    http_post      -> chân 3: exfil vector (chỉ trỏ được vào localhost:9999)
+    http_post      -> chân 3: exfil vector (chỉ trỏ được vào 127.0.0.1:10024)
 
 KHÔNG thêm chân thứ 4 (một tool mới đọc + viết + gọi network cùng lúc sẽ
 tái tạo lại đúng vấn đề mà cả bài lab đang giải quyết). Sinh viên không cần
@@ -23,8 +23,8 @@ CUSTOMERS_FILE = BASE_DIR / "data" / "customers.json"
 
 # Allowlist cứng: lab chỉ được phép "tấn công" chính nó, không bao giờ ra
 # Internet thật. Đừng nới allowlist này ra cho vui.
-ALLOWED_EGRESS_HOST = "localhost"
-ALLOWED_EGRESS_PORT = 9999
+ALLOWED_EGRESS_HOST = "127.0.0.1"
+ALLOWED_EGRESS_PORT = 10024
 
 
 class ToolError(Exception):
@@ -68,13 +68,14 @@ def read_customer(customer_id: str, customers_file: Path | None = None) -> dict:
 def http_post(url: str, body: dict, timeout: float = 5.0) -> dict:
     """Chân 3: exfil vector.
 
-    Hard-allowlist vào http://localhost:9999/*. Đây KHÔNG phải là một
+    Hard-allowlist vào http://127.0.0.1:10024/*. Đây KHÔNG phải là một
     security control mà sinh viên có thể dựa vào — nó tồn tại để bài lab
     chạy an toàn (không ai vô tình POST PII ra Internet thật), không phải
     để chứng minh containment. Containment thật nằm ở policy.py/runner.py.
     """
     parsed = urlparse(url)
-    if parsed.hostname != ALLOWED_EGRESS_HOST or parsed.port != ALLOWED_EGRESS_PORT:
+    if (parsed.scheme != "http" or parsed.hostname != ALLOWED_EGRESS_HOST
+            or parsed.port != ALLOWED_EGRESS_PORT):
         raise ToolError(
             f"http_post bị chặn cứng: chỉ cho phép "
             f"http://{ALLOWED_EGRESS_HOST}:{ALLOWED_EGRESS_PORT}/*, "

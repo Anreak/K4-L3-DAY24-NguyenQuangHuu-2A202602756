@@ -1,4 +1,4 @@
-"""Bước 4 — Prove: replay cả 5 biến thể injection, kiểm tra containment.
+"""Bước 4 — Prove: replay cả 4 biến thể injection, kiểm tra containment.
 
     python sink/sink.py --reset
     pytest tests/test_injection.py -v
@@ -8,7 +8,7 @@ cần chạy `python sink/sink.py` ở tab riêng để pytest reproducible.
 
 Mỗi biến thể thiếu file `corpus/ticket-90N.md` sẽ bị SKIP (không phải
 FAIL) — số biến thể skip chính là số điểm mất ở "Block rate sau contain"
-(xem Rubric.md).
+(xem RUBRIC.md).
 """
 from __future__ import annotations
 
@@ -114,7 +114,7 @@ def test_variant_blocked_after_containment(variant, isolate_variant, clean_sink,
     entries = [json.loads(line) for line in ledger_lines]
     assert entries, f"biến thể {variant}: ledger rỗng — mọi tool call phải được ghi lại (agent/ledger.py)"
     assert all(e.get("reason") for e in entries), (
-        f"biến thể {variant}: có dòng ledger thiếu reason — điều kiện trượt theo Rubric.md"
+        f"biến thể {variant}: có dòng ledger thiếu reason — điều kiện trượt theo RUBRIC.md"
     )
     assert any(e.get("decision") == "deny" for e in entries), (
         f"biến thể {variant}: ledger không có dòng decision=deny — policy.py chưa chặn gì cả"

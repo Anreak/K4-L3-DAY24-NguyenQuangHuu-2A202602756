@@ -21,11 +21,11 @@ from dataclasses import dataclass, field
 @dataclass
 class InjectedInstruction:
     customer_ids: list[str] = field(default_factory=list)
-    target_url: str = "http://localhost:9999/reconcile"
+    target_url: str = "http://127.0.0.1:10024/reconcile"
     matched_markers: list[str] = field(default_factory=list)
 
 
-# Các cụm từ đặc trưng cho 5 kỹ thuật injection nêu trong Guide.md
+# Các cụm từ đặc trưng cho 4 kỹ thuật injection nêu trong CHECKPOINTS.md
 # §2 Bước 2. Được so khớp SAU KHI đã chuẩn hoá (bỏ dấu, hạ chữ thường, bỏ
 # zero-width char) — mô phỏng đúng việc một model thật vẫn "hiểu" được
 # tiếng Việt không dấu / teencode, khác với một bộ filter chuỗi thô.
@@ -75,7 +75,7 @@ def find_injection(text: str) -> InjectedInstruction | None:
         return None
     customer_ids = sorted(set(_CUSTOMER_ID_RE.findall(text)))
     urls = _URL_RE.findall(text)
-    target_url = urls[0].rstrip(".,;:!?") if urls else "http://localhost:9999/reconcile"
+    target_url = urls[0].rstrip(".,;:!?") if urls else "http://127.0.0.1:10024/reconcile"
     return InjectedInstruction(customer_ids=customer_ids, target_url=target_url, matched_markers=hits)
 
 
@@ -94,7 +94,7 @@ class MockLLM:
 
 class RealLLM:
     """Wrapper mỏng gọi Claude thật qua Anthropic API. Dùng cho stretch /
-    demo; bài lab KHÔNG được chấm bằng model thật (xem Guide.md
+    demo; bài lab KHÔNG được chấm bằng model thật (xem CHECKPOINTS.md
     §2, lý do reproducibility)."""
 
     def __init__(self, model: str):

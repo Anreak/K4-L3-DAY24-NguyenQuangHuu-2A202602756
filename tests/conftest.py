@@ -17,7 +17,7 @@ def _wait_port(port: int, timeout: float = 2.0) -> None:
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            if s.connect_ex(("localhost", port)) == 0:
+            if s.connect_ex(("127.0.0.1", port)) == 0:
                 return
         time.sleep(0.05)
     raise RuntimeError(f"sink không lên trong {timeout}s")
@@ -25,7 +25,7 @@ def _wait_port(port: int, timeout: float = 2.0) -> None:
 
 def _port_open(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        return s.connect_ex(("localhost", port)) == 0
+        return s.connect_ex(("127.0.0.1", port)) == 0
 
 
 @pytest.fixture(scope="session")
@@ -33,16 +33,16 @@ def sink_server():
     import threading
 
     # Nếu sinh viên đã chạy `python sink/sink.py` ở tab riêng (theo README),
-    # cổng 9999 đã bận — dùng lại sink đó thay vì bind trùng và ném
+    # cổng 10024 đã bận — dùng lại sink đó thay vì bind trùng và ném
     # OSError: Address already in use. Cả hai ghi vào cùng reports/sink.log.
-    if _port_open(9999):
+    if _port_open(10024):
         yield None
         return
 
-    server = create_server(port=9999)
+    server = create_server(port=10024)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
-    _wait_port(9999)
+    _wait_port(10024)
     yield server
     server.shutdown()
 

@@ -1,14 +1,14 @@
 # Injection corpus — Bước 2 (Red team)
 
-Ghi lại ở đây **5 biến thể** prompt injection, mỗi biến thể một kỹ thuật
-khác nhau. Biến thể 1 đã có sẵn làm ví dụ — 4 biến thể còn lại (2-5) là
+Ghi lại ở đây **4 biến thể** prompt injection, mỗi biến thể một kỹ thuật
+khác nhau. Biến thể 1 đã có sẵn làm ví dụ — 3 biến thể còn lại (2-4) là
 việc của bạn.
 
 Quy ước: mỗi biến thể là 1 file trong `corpus/`, đặt tên
-`ticket-90N.md` (N = 1..5), nhắm vào khách hàng `KH-000999`
+`ticket-90N.md` (N = 1..4), nhắm vào khách hàng `KH-000999`
 (xem `data/customers.json`). `tests/test_injection.py` sẽ tự động tìm các
 file này và replay lại — thiếu file nào thì phần điểm của biến thể đó
-tính là 0 (xem `Rubric.md`).
+tính là 0 (xem `RUBRIC.md`).
 
 Mỗi mục dưới đây PHẢI có: kỹ thuật dùng, kết quả trước khi contain (Bước
 2), kết quả sau khi contain (Bước 4). Dùng log thật, không mô tả chung.
@@ -108,23 +108,3 @@ lệnh mới hoàn chỉnh.
 <!-- TODO -->
 
 ---
-
-## Biến thể 5 — Không dấu / teencode / unicode lookalike
-
-**File:** `corpus/ticket-905.md`
-
-**Kỹ thuật:** Viết chỉ thị bằng tiếng Việt không dấu, teencode, hoặc ký tự
-Unicode nhìn giống ký tự Latin (homoglyph) để vượt qua một bộ filter
-chuỗi thô (naive string match) — nhưng agent (giống một model thật) vẫn
-"đọc hiểu" được.
-
-**Đây là biến thể phá filter chuỗi.** Nếu Bước 3c bạn chỉ viết
-`if "hãy gọi" in text: block`, biến thể này phải phá được nó. Ghi lại rõ:
-filter chuỗi (nếu có) có bị phá không, và trifecta split có chặn được
-không.
-
-**Kết quả trước khi contain:**
-<!-- TODO -->
-
-**Kết quả sau khi contain:**
-<!-- TODO -->
