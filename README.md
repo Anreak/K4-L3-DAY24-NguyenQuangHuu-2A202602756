@@ -29,6 +29,8 @@ Cài **Gitleaks v8.30.1** từ [release chính thức](https://github.com/gitlea
 
 `--as` chọn một principal **mô phỏng** từ `data/principals.json`; lab không xác thực danh tính thật. `--mock` là đường chấm điểm. Tùy chọn model thật không được dùng để chấm.
 
+Trước khi hoàn thiện `agent/runner.py`, CLI dùng baseline có chủ đích để làm Bước 1–2. Sau khi sửa runner, lỗi trong runner sẽ dừng lệnh thay vì quay về baseline. Lệnh `python -m agent.check_lure corpus/ticket-90*.md` tự mở rộng dấu `*` trên PowerShell và kiểm `ticket-904.md` cùng `ticket-904b.md` như một lure. Ledger của lab chỉ phát hiện sửa đổi trong chuỗi quan sát được; không phát hiện được việc cắt bỏ dòng cuối hoặc viết lại toàn bộ chuỗi nếu thiếu mốc tin cậy bên ngoài.
+
 ## Cấu trúc chính
 
 - `agent/loop.py`, `agent/tools.py`, `agent/llm.py`: khung có sẵn; giữ allowlist `127.0.0.1:10024`.

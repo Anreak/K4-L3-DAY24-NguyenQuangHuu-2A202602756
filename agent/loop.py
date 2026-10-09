@@ -64,21 +64,15 @@ def run_once(message: str, mock: bool = True, model: str | None = None,
     """
     llm = get_llm(mock=mock, model=model)
 
+    runner = importlib.import_module("agent.runner")
     try:
-        runner = importlib.import_module("agent.runner")
-        handle = getattr(runner, "handle", None)
-    except ModuleNotFoundError:
-        handle = None
-
-    if handle is not None:
-        try:
-            return handle(message, llm, log_dir=log_dir, principal_id=principal_id)
-        except NotImplementedError:
-            handle = None
-
-    if handle is None:
-        return _naive_loop(message, llm)
-    return handle(message, llm, log_dir=log_dir, principal_id=principal_id)
+        return runner.handle(message, llm, log_dir=log_dir, principal_id=principal_id)
+    except NotImplementedError as exc:
+        # Only the untouched checkpoint-3c scaffold may run the unsafe baseline.
+        # A failure inside a student's implementation must stop the run.
+        if type(exc) is getattr(runner, "RunnerScaffoldPending", None):
+            return _naive_loop(message, llm)
+        raise
 
 
 def main() -> None:

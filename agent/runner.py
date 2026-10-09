@@ -65,6 +65,10 @@ REPORTS_DIR = Path(__file__).resolve().parent.parent / "reports"
 DEFAULT_LEDGER_PATH = REPORTS_DIR / "ledger.jsonl"
 
 
+class RunnerScaffoldPending(NotImplementedError):
+    """Only the original 3c stub uses this to enable the CP1/CP2 baseline."""
+
+
 def handle(message: str, llm, log_dir: Path | None = None,
            principal_id: str = "support_l1") -> str:
-    raise NotImplementedError("BƯỚC 3c: implement trifecta split")
+    raise RunnerScaffoldPending("BƯỚC 3c: implement trifecta split")
