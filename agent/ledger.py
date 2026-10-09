@@ -25,8 +25,12 @@ Interface bắt buộc (tests/test_ledger.py và agent/runner.py gọi trực ti
           - prev_hash của dòng n == hash đã lưu của dòng n-1 (dòng đầu so
             với "0" * 64)
           - hash lưu trong dòng n khớp lại khi tính lại từ nội dung dòng đó
-        Trả về False nếu bất kỳ dòng nào bị sửa/xoá/chèn giữa file, hoặc
-        thiếu reason.
+        Trả về False nếu một dòng còn trong file bị sửa mà không tính lại
+        hash, nếu xoá/chèn giữa file làm đứt liên kết, hoặc thiếu reason.
+        Chỉ kiểm tra file hiện có KHÔNG phát hiện được việc xoá dòng cuối
+        hoặc viết lại cả file và tính lại chuỗi. Muốn phát hiện cắt đuôi
+        phải lưu hash/số dòng cuối ở một nơi tin cậy bên ngoài file rồi
+        đối chiếu. Bài lab không cung cấp mốc đó.
 
 Sinh viên phải tự tay chứng minh được: sửa 1 ký tự trong 1 dòng giữa file
 rồi gọi verify() phải trả về False.

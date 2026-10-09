@@ -52,7 +52,7 @@ Run A đọc `corpus/` nhưng không chạm private store/egress. Chỉ truyền
 
 ## 3e. Ledger
 
-Hoàn thiện `append()`/`verify()` với hash chain. Chứng minh sửa một dòng cũ làm `verify()` trả False. Không ghi PII thô vào ledger; `args_hash` đủ để đối chiếu call.
+Hoàn thiện `append()`/`verify()` với hash chain. Chứng minh sửa một dòng cũ mà không tính lại hash làm `verify()` trả False. Hash chain trong một file không phát hiện được việc xoá dòng cuối hoặc viết lại cả file và tính lại chuỗi nếu thiếu mốc tin cậy bên ngoài; bài lab không yêu cầu mốc này. Không ghi PII thô vào ledger; `args_hash` đủ để đối chiếu call trong bài lab.
 
 ## 4. Supply chain & secrets (checkpoint L3)
 
