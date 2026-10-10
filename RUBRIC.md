@@ -6,7 +6,7 @@ Chấm bằng mock, trên dữ liệu synthetic. **Điểm cuối = min(100, đi
 |---|---:|---|
 | Baseline attack và log | 10 | `reports/attack-before.log` chứa PII synthetic của `KH-000999` |
 | 4 lure, khác kỹ thuật, có before/after | 10 | `injection-corpus.md`, `check_lure` cho cả 4 |
-| Block sau containment | 10 | 4 biến thể trong `tests/test_injection.py` |
+| Block sau containment | 10 | 4 biến thể × 2 principal (`support_l1`, `dpo`) trong `tests/test_injection.py` |
 | PII detection | 10 | `test_pii.py -s`: recall >95% = 10; 85–95% = 7; <85% = 3 |
 | Split thực, còn chức năng hợp lệ | 15 | `test_split.py`: không đọc `KH-000777`, vẫn đọc khách hợp lệ |
 | OBO | 10 | `test_obo.py`: support deny, dpo allow, delegation/TTL/ledger đúng |

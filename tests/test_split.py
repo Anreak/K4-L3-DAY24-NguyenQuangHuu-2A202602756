@@ -56,7 +56,7 @@ def _record(customer_id: str) -> dict:
 
 @pytest.fixture
 def only_the_lure(tmp_path):
-    """Chỉ để lại biến thể của test này trong corpus/, cất 901-905 ra ngoài."""
+    """Chỉ để lại biến thể của test này trong corpus/, cất các lure ticket-90*.md ra ngoài."""
     stash = tmp_path / "stash"
     stash.mkdir()
     moved = []

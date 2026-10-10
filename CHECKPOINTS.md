@@ -42,13 +42,15 @@ Hoàn thiện `detect()` và `redact()` trong `agent/pii.py`. Dùng regex cho CC
 
 ## 3c. Agent hành động thay người dùng (checkpoint L3)
 
-`data/principals.json` là **nguồn tin cậy mô phỏng**: `support_l1` được `search_docs` và `customer_index` nhưng không được `read_customer`; `dpo` được `read_customer` cho `support-reply`. Quyền hiệu lực của một tool call là giao của `principal.allowed_tools`, `agent_scopes` và `parent_scopes` khi `delegation_depth > 0`. Unknown principal, scope thiếu, purpose sai, hoặc `expires_at` đã qua đều deny. Trong runner, kiểm ngay **trước** `read_customer`, không đọc rồi mới lọc. Mỗi dòng ledger ghi `on_behalf_of`, `agent_id`, `run_id`, `expires_at`.
+`data/principals.json` là **nguồn tin cậy mô phỏng**: `support_l1` chỉ được `search_docs`, không được `read_customer`; `dpo` được `read_customer` cho `support-reply`. Quyền hiệu lực của một tool call là giao của `principal.allowed_tools`, `agent_scopes` và `parent_scopes` khi `delegation_depth > 0`. Unknown principal, scope thiếu, purpose sai, hoặc `expires_at` đã qua đều deny. Trong runner, kiểm ngay **trước** `read_customer`, không đọc rồi mới lọc. Mỗi dòng ledger ghi `on_behalf_of`, `agent_id`, `run_id`, `expires_at`.
 
 Test phải chứng minh cả hai chiều: `support_l1` bị deny, `dpo` vẫn đọc được khách gắn với ticket hợp lệ. `--as` là mô phỏng quyền, không phải chứng minh authentication production.
 
 ## 3d. Trifecta split
 
 Run A đọc `corpus/` nhưng không chạm private store/egress. Chỉ truyền ID ticket dạng số lấy từ **tên file** sang Run B. Run B suy customer ID từ `related_tickets` trong `data/customers.json`, tuyệt đối không lấy ID trong free text attacker. `tests/test_split.py` phải pass cả an toàn và tiện ích; deny tất cả không đạt.
+
+Lưu ý: `KH-000999` có `related_tickets` gồm 901–905, tức lure được gắn vào hồ sơ của chính nạn nhân. Dưới `dpo`, Run B vẫn đọc hồ sơ này **hợp lệ**: split chặn được khách mà attacker chỉ nêu trong free text (như `KH-000777` trong `test_split.py`), không chặn khách gắn với ticket. Khi đó chỉ có PEP chặn `http_post` (restricted + egress) ngăn dữ liệu ra sink. Vì vậy `tests/test_injection.py` chạy mỗi biến thể dưới cả `support_l1` và `dpo`, và mọi lần `http_post` chạy thật phải có dòng ledger `allow` tương ứng.
 
 ## 3e. Ledger
 
