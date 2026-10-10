@@ -52,8 +52,8 @@ def _normalize(text: str) -> str:
     """Bỏ dấu tiếng Việt, hạ chữ thường, bỏ zero-width char.
 
     Đây là bước mà một filter chuỗi thô (naive string match) thường KHÔNG
-    làm — chính là lý do biến thể 5 (không dấu / teencode / unicode
-    lookalike) phá được filter đó, trong khi mock LLM ở đây (mô phỏng một
+    làm — chính là lý do một lure viết không dấu / teencode / unicode
+    lookalike phá được filter đó, trong khi mock LLM ở đây (mô phỏng một
     model thật) vẫn "đọc hiểu" bình thường.
     """
     text = text.replace("​", "").replace("‌", "").replace("﻿", "")

@@ -37,3 +37,4 @@ def test_incident_note_identifies_synthetic_leak():
     assert SEED_COMMIT in note, "Ghi commit chứa token giả từ lịch sử"
     assert "rotate" in note or "thu hồi" in note
     assert "gitleaks" in note
+    assert "lab24-synthetic-token" in note, "Ghi rule id đã bắt token giả"

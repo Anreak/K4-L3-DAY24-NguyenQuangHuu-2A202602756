@@ -33,12 +33,12 @@ customer_id mà attacker nhúng trong nội dung document. Cụ thể:
            read_customer(customer_id) đó — không phải customer_id lấy từ
            text tự do.
 
-Vì sao cách này chống được biến thể 5 (không dấu / lookalike): filter
+Vì sao cách này chống được một chỉ thị viết không dấu / lookalike: filter
 chuỗi thô sẽ luôn có thể bị né bằng cách viết lại chỉ thị, nhưng nếu Run B
 không bao giờ ĐỌC free text để quyết định gọi ai, thì việc né filter chuỗi
 trở nên vô nghĩa — đây là containment (kiến trúc), khác với mitigation
-(bộ lọc). Sinh viên NÊN thử filter chuỗi trước, rồi tự phá nó bằng biến
-thể 5, trước khi chuyển sang cách này.
+(bộ lọc). Sinh viên NÊN thử filter chuỗi trước, rồi tự phá nó bằng
+một bản viết lại không dấu của lure, trước khi chuyển sang cách này.
 
 Interface bắt buộc (agent/loop.py import và gọi hàm này nếu tồn tại):
 
