@@ -39,7 +39,7 @@ Kết quả trước khi contain (Bước 2):
 ```
 
 Kết quả sau khi contain (Bước 4):
-<!-- dán output / trích log từ reports/attack-after.log ở đây -->
+reports/attack-after.log rỗng (0 byte), không có request nào tới sink. Lệnh http_post bị policy chặn cứng (decision=deny, reason="Dữ liệu restricted không được phép gọi network/egress") và được ghi nhận trong reports/ledger.jsonl.
 
 ---
 
@@ -55,7 +55,7 @@ Kết quả trước khi contain:
 ```
 
 Kết quả sau khi contain:
-<!-- dán output / trích log từ reports/attack-after.log ở đây -->
+reports/attack-after.log rỗng (0 byte), không có request nào tới sink. Lệnh http_post bị policy chặn cứng (decision=deny, reason="Dữ liệu restricted không được phép gọi network/egress") và được ghi nhận trong reports/ledger.jsonl.
 
 ---
 
@@ -71,7 +71,7 @@ Kết quả trước khi contain:
 ```
 
 Kết quả sau khi contain:
-<!-- dán output / trích log từ reports/attack-after.log ở đây -->
+reports/attack-after.log rỗng (0 byte), không có request nào tới sink. Lệnh http_post bị policy chặn cứng (decision=deny, reason="Dữ liệu restricted không được phép gọi network/egress") và được ghi nhận trong reports/ledger.jsonl.
 
 ---
 
@@ -87,6 +87,6 @@ Kết quả trước khi contain:
 ```
 
 Kết quả sau khi contain:
-<!-- dán output / trích log từ reports/attack-after.log ở đây -->
+reports/attack-after.log rỗng (0 byte), không có request nào tới sink. Lệnh http_post bị policy chặn cứng (decision=deny, reason="Dữ liệu restricted không được phép gọi network/egress") và được ghi nhận trong reports/ledger.jsonl.
 
 ---
